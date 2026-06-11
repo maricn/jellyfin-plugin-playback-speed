@@ -1,0 +1,20 @@
+[
+  {
+    "guid": "e8d45e34-b36a-44e6-aecb-b44a9ff6be20",
+    "name": "Playback Speed",
+    "description": "Adds browser playback speed controls to Jellyfin Web audio and video playback.",
+    "overview": "Adds Jellyfin Web playback speed controls.",
+    "owner": "shoos",
+    "category": "General",
+    "versions": [
+      {
+        "version": "0.1.0.0",
+        "changelog": "Initial plugin scaffold with configurable floating speed controls.",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/stephenhoos/jellyfin-plugin-playback-speed/releases/download/v0.1.0.0/Jellyfin.Plugin.PlaybackSpeed_0.1.0.0.zip",
+        "checksum": "7e138ef0253088adc918b5d6d4b4a0fbf3ddad8fc84805a30be735d004f5baf6",
+        "timestamp": "2026-06-11T00:00:00Z"
+      }
+    ]
+  }
+]

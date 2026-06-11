@@ -1,0 +1,17 @@
+name: "Playback Speed"
+guid: "e8d45e34-b36a-44e6-aecb-b44a9ff6be20"
+version: "0.1.0.0"
+targetAbi: "10.11.0.0"
+framework: "net9.0"
+overview: "Adds browser playback speed controls to Jellyfin Web audio and video playback."
+description: >
+  Playback Speed injects a small Jellyfin Web control that sets the active
+  audio or video element playback rate. It is intended for podcasts,
+  audiobooks, lectures, and other media where Jellyfin Web does not expose
+  speed controls.
+category: "General"
+owner: "shoos"
+artifacts:
+- "Jellyfin.Plugin.PlaybackSpeed.dll"
+changelog: >
+  Initial plugin scaffold with configurable floating speed controls.

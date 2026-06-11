@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Playback Speed</title>
+</head>
+<body>
+    <div id="PlaybackSpeedConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="PlaybackSpeedConfigForm">
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input id="Enabled" name="Enabled" type="checkbox" is="emby-checkbox" />
+                            <span>Enable playback speed controls</span>
+                        </label>
+                    </div>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input id="ShowFloatingControl" name="ShowFloatingControl" type="checkbox" is="emby-checkbox" />
+                            <span>Show floating speed control</span>
+                        </label>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="DefaultSpeed">Default speed</label>
+                        <input id="DefaultSpeed" name="DefaultSpeed" type="number" is="emby-input" min="0.25" max="16" step="0.05" />
+                        <div class="fieldDescription">Used until a user chooses a speed in their browser.</div>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="AvailableSpeeds">Available speeds</label>
+                        <input id="AvailableSpeeds" name="AvailableSpeeds" type="text" is="emby-input" />
+                        <div class="fieldDescription">Comma-separated values, for example: 0.75,1,1.25,1.5,2.</div>
+                    </div>
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var PlaybackSpeedConfig = {
+                pluginUniqueId: 'e8d45e34-b36a-44e6-aecb-b44a9ff6be20'
+            };
+
+            document.querySelector('#PlaybackSpeedConfigPage')
+                .addEventListener('pageshow', function() {
+                    Dashboard.showLoadingMsg();
+                    ApiClient.getPluginConfiguration(PlaybackSpeedConfig.pluginUniqueId).then(function (config) {
+                        document.querySelector('#Enabled').checked = config.Enabled;
+                        document.querySelector('#ShowFloatingControl').checked = config.ShowFloatingControl;
+                        document.querySelector('#DefaultSpeed').value = config.DefaultSpeed;
+                        document.querySelector('#AvailableSpeeds').value = config.AvailableSpeeds;
+                        Dashboard.hideLoadingMsg();
+                    });
+                });
+
+            document.querySelector('#PlaybackSpeedConfigForm')
+                .addEventListener('submit', function(e) {
+                    Dashboard.showLoadingMsg();
+                    ApiClient.getPluginConfiguration(PlaybackSpeedConfig.pluginUniqueId).then(function (config) {
+                        config.Enabled = document.querySelector('#Enabled').checked;
+                        config.ShowFloatingControl = document.querySelector('#ShowFloatingControl').checked;
+                        config.DefaultSpeed = Number(document.querySelector('#DefaultSpeed').value);
+                        config.AvailableSpeeds = document.querySelector('#AvailableSpeeds').value;
+                        ApiClient.updatePluginConfiguration(PlaybackSpeedConfig.pluginUniqueId, config).then(function (result) {
+                            Dashboard.processPluginConfigurationUpdateResult(result);
+                        });
+                    });
+
+                    e.preventDefault();
+                    return false;
+                });
+        </script>
+    </div>
+</body>
+</html>
